@@ -2,6 +2,7 @@ var extend = require('extend');
 
 function Queue() {
     var self = this;
+    var running = false;
     var queue = [];
     var args = Array.prototype.slice.call(arguments, 0);
 
@@ -17,15 +18,18 @@ function Queue() {
     var onDequeue = async () => {};
     
     self.name = options.name;
-    self.onExit = () => {};    
-    self.getStatus = () => {({state: state, length: queue.length})};
+    self.onExit = () => {};
     
     self.push = function() {
         if (queue === undefined) throw 'Attempt to push into stopped queue';
-        debug('push', queue);
         var args = Array.prototype.slice.call(arguments, 0);
         queue.push(args.length === 1 ? args[0] : args);
-        self.dequeue();
+        if (!running) {
+            debug('push => dequeue', queue);
+            self.dequeue();
+        } else {
+            debug('push => nothing', queue);
+        }
         return self;
     };
     
@@ -46,17 +50,18 @@ function Queue() {
     }
     
     self.dequeue = async () => {
+        debug('running', queue);
+        running = true;
+
         if (queue.length > 0) {
             debug('dequeued', queue);
-
-            if (options.interval === 0) {
-                await onDequeue(queue.splice(0, 1)[0]);
+            await onDequeue(queue.splice(0, 1)[0]);
+            setTimeout(() => {
                 self.dequeue();
-            } else {
-                onDequeue(queue.splice(0, 1)[0]);
-                setTimeout(self.dequeue, options.interval);
-            }
+            }, options.interval);
         } else {
+            debug('paused', queue);
+            running = false;
             self.onExit();
         }
         
