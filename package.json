@@ -1,0 +1,11 @@
+{
+    "version":  "1.0.0",
+    "name":  "queue",
+    "description":  "",
+    "dependencies":  {
+        "extend":  "latest"
+    },
+    "author":  "Anatoliy Oblauhov",
+    "license":  "ISC",
+    "main":  "queue.js"
+}
