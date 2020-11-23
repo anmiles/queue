@@ -55,7 +55,7 @@ function Queue() {
 
         if (queue.length > 0) {
             debug('dequeued', queue);
-            await onDequeue(queue.splice(0, 1)[0]);
+            await onDequeue(queue.splice(0, 1)[0], queue.length);
             setTimeout(() => {
                 self.dequeue();
             }, options.interval);
