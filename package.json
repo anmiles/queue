@@ -5,7 +5,7 @@
     "dependencies": {
         "extend": "latest"
     },
-    "author": "Anatoliy Oblauhov",
+    "author": "Anatoliy Oblaukhov",
     "license": "ISC",
     "main": "queue.js"
 }
