@@ -12,7 +12,7 @@ function Queue() {
 
     var options = args.shift() || {};
 
-    var defaultOptions = {name : '', interval: 0, debug: true};
+    var defaultOptions = {name : '', interval: 0, debug: false};
     options = extend(defaultOptions, options);
 
     var onDequeue = async () => {};
