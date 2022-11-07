@@ -3,7 +3,7 @@
     "name": "queue",
     "description": "",
     "dependencies": {
-        "extend": "latest"
+        "extend": "^3.0.2"
     },
     "author": "Anatoliy Oblaukhov",
     "license": "ISC",
