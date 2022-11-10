@@ -16,10 +16,10 @@ function Queue() {
     options = extend(defaultOptions, options);
 
     var onDequeue = async () => {};
-    
+
     self.name = options.name;
     self.onExit = () => {};
-    
+
     self.push = function() {
         if (queue === undefined) throw 'Attempt to push into stopped queue';
         var args = Array.prototype.slice.call(arguments, 0);
@@ -32,23 +32,23 @@ function Queue() {
         }
         return self;
     };
-    
+
     self.callback = _onDequeue => {
         onDequeue = _onDequeue;
         self.dequeue();
         return self;
     };
-    
+
     self.done = onExit => {
         self.onExit = () => {
             debug('stopped', queue);
             onExit();
             queue = undefined;
         }
-        
+
         return self;
     }
-    
+
     self.dequeue = async () => {
         debug('running', queue);
         running = true;
@@ -64,10 +64,10 @@ function Queue() {
             running = false;
             self.onExit();
         }
-        
+
         return self;
     }
-    
+
     var debug = function(state, _queue) {
         if (!options.debug) return;
         console.log(`Queue ${options.name} ${state} (${_queue.length})`);
