@@ -1,4 +1,4 @@
-var extend = require('extend');
+const extend = require('extend');
 
 function Queue() {
     var self = this;
