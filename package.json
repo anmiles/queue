@@ -30,7 +30,7 @@
     "emittery": "^0.13.1"
   },
   "devDependencies": {
-    "@anmiles/eslint-config": "^1.0.4",
+    "@anmiles/eslint-config": "^1.0.5",
     "@anmiles/sleep": "^1.0.0",
     "@types/jest": "^29.5.1",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
