@@ -1,11 +1,48 @@
 {
-    "version": "1.0.0",
-    "name": "queue",
-    "description": "",
-    "dependencies": {
-        "extend": "^3.0.2"
-    },
-    "author": "Anatoliy Oblaukhov",
-    "license": "ISC",
-    "main": "queue.js"
+  "name": "@anmiles/queue",
+  "version": "0.0.1",
+  "description": "Queue dispatcher that sequentially processes incoming items",
+  "keywords": [
+    "queue",
+    "enqueue",
+    "dispatcher"
+  ],
+  "author": "Anatoliy Oblaukhov",
+  "homepage": "https://gitlab.com/anmiles/lib/queue",
+  "repository": "gitlab:anmiles/lib/queue",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.14.2"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "lint": "eslint --ext .js,.ts .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest --verbose",
+    "test:coverage": "npm test -- --coverage",
+    "test:ci": "npm test -- --ci --coverage",
+    "test:watch": "npm test -- --watch",
+    "test:watch:coverage": "npm test -- --watch --coverage",
+    "test:report:coverage": "nyc report --nycrc-path ./coverage.config.js -t ./coverage --report-dir ./coverage"
+  },
+  "dependencies": {
+    "emittery": "^0.13.1"
+  },
+  "devDependencies": {
+    "@anmiles/eslint-config": "^1.0.4",
+    "@anmiles/sleep": "^1.0.0",
+    "@types/jest": "^29.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
+    "eslint": "^8.40.0",
+    "eslint-plugin-align-assignments": "^1.1.2",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^27.2.1",
+    "jest": "^29.5.0",
+    "nyc": "^15.1.0",
+    "rimraf": "^5.0.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4"
+  }
 }
