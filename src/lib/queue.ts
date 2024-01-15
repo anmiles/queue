@@ -12,6 +12,7 @@ export default class Queue<TItem> extends Emittery<{[TEvent in keyof Listeners<T
 
 	constructor(data: TItem[] = [], { interval = 0 }: { interval?: number } = {}) {
 		super();
+		this.done     = false;
 		this.data     = data;
 		this.interval = interval;
 	}
