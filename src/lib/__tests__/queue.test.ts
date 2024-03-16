@@ -14,7 +14,7 @@ describe('src/lib/queue', () => {
 
 	beforeEach(() => {
 		setTimeoutSpy.mockImplementation((func, timeout) => {
-			log.push(`timeout(${Math.floor(timeout || 0)})`);
+			log.push(`timeout(${Math.floor(timeout ?? 0)})`);
 			func();
 			return 0 as unknown as ReturnType<typeof setTimeout>;
 		});
@@ -53,8 +53,8 @@ describe('src/lib/queue', () => {
 			});
 		});
 
-		it('should process empty queue', () => new Promise<void>((resolve) => {
-			queue['data'] = [];
+		it('should process empty queue', async () => new Promise<void>((resolve) => {
+			Reflect.set(queue, 'data', []);
 
 			queue.on('done', () => {
 				log.push('done');
@@ -66,10 +66,10 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue in sequential order', () => new Promise<void>((resolve) => {
+		it('should process queue in sequential order', async () => new Promise<void>((resolve) => {
 			queue.on('done', () => {
 				log.push('done');
 
@@ -84,11 +84,11 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue with intervals in sequential order', () => new Promise<void>((resolve) => {
-			queue['interval'] = 1000;
+		it('should process queue with intervals in sequential order', async () => new Promise<void>((resolve) => {
+			Reflect.set(queue, 'interval', 1000);
 
 			queue.on('done', () => {
 				log.push('done');
@@ -104,10 +104,10 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue in sequential order when enqueuing items before dequeueing', () => new Promise<void>((resolve) => {
+		it('should process queue in sequential order when enqueuing items before dequeueing', async () => new Promise<void>((resolve) => {
 			queue.on('done', () => {
 				log.push('done');
 
@@ -127,10 +127,10 @@ describe('src/lib/queue', () => {
 			});
 
 			queue.enqueue(300, 200);
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue in sequential order when enqueuing items after dequeueing', () => new Promise<void>((resolve) => {
+		it('should process queue in sequential order when enqueuing items after dequeueing', async () => new Promise<void>((resolve) => {
 			let doneCalledOnce = false;
 
 			queue.on('done', () => {
@@ -158,11 +158,11 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue with intervals in sequential order when enqueuing items before dequeueing', () => new Promise<void>((resolve) => {
-			queue['interval'] = 1000;
+		it('should process queue with intervals in sequential order when enqueuing items before dequeueing', async () => new Promise<void>((resolve) => {
+			Reflect.set(queue, 'interval', 1000);
 
 			queue.on('done', () => {
 				log.push('done');
@@ -183,11 +183,11 @@ describe('src/lib/queue', () => {
 			});
 
 			queue.enqueue(300, 200);
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue with intervals in sequential order when enqueuing items after dequeueing', () => new Promise<void>((resolve) => {
-			queue['interval'] = 1000;
+		it('should process queue with intervals in sequential order when enqueuing items after dequeueing', async () => new Promise<void>((resolve) => {
+			Reflect.set(queue, 'interval', 1000);
 
 			let doneCalledOnce = false;
 
@@ -216,7 +216,7 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 	});
 
@@ -229,8 +229,8 @@ describe('src/lib/queue', () => {
 			});
 		});
 
-		it('should process empty queue', () => new Promise<void>((resolve) => {
-			queue['data'] = [];
+		it('should process empty queue', async () => new Promise<void>((resolve) => {
+			Reflect.set(queue, 'data', []);
 
 			queue.on('done', () => {
 				log.push('done');
@@ -242,10 +242,10 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue in sequential order', () => new Promise<void>((resolve) => {
+		it('should process queue in sequential order', async () => new Promise<void>((resolve) => {
 			queue.on('done', () => {
 				log.push('done');
 
@@ -264,11 +264,11 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue with intervals in sequential order', () => new Promise<void>((resolve) => {
-			queue['interval'] = 1000;
+		it('should process queue with intervals in sequential order', async () => new Promise<void>((resolve) => {
+			Reflect.set(queue, 'interval', 1000);
 
 			queue.on('done', () => {
 				log.push('done');
@@ -288,10 +288,10 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue in sequential order when enqueuing items before dequeueing', () => new Promise<void>((resolve) => {
+		it('should process queue in sequential order when enqueuing items before dequeueing', async () => new Promise<void>((resolve) => {
 			queue.on('done', () => {
 				log.push('done');
 
@@ -319,10 +319,10 @@ describe('src/lib/queue', () => {
 			});
 
 			queue.enqueue(300, 200);
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue in sequential order when enqueuing items after dequeueing', () => new Promise<void>((resolve) => {
+		it('should process queue in sequential order when enqueuing items after dequeueing', async () => new Promise<void>((resolve) => {
 			let doneCalledOnce = false;
 
 			queue.on('done', () => {
@@ -358,11 +358,11 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue with intervals in sequential order when enqueuing items before dequeueing', () => new Promise<void>((resolve) => {
-			queue['interval'] = 1000;
+		it('should process queue with intervals in sequential order when enqueuing items before dequeueing', async () => new Promise<void>((resolve) => {
+			Reflect.set(queue, 'interval', 1000);
 
 			queue.on('done', () => {
 				log.push('done');
@@ -391,11 +391,11 @@ describe('src/lib/queue', () => {
 			});
 
 			queue.enqueue(300, 200);
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 
-		it('should process queue with intervals in sequential order when enqueuing items after dequeueing', () => new Promise<void>((resolve) => {
-			queue['interval'] = 1000;
+		it('should process queue with intervals in sequential order when enqueuing items after dequeueing', async () => new Promise<void>((resolve) => {
+			Reflect.set(queue, 'interval', 1000);
 
 			let doneCalledOnce = false;
 
@@ -432,7 +432,7 @@ describe('src/lib/queue', () => {
 				resolve();
 			});
 
-			queue.dequeue();
+			void queue.dequeue();
 		}));
 	});
 
