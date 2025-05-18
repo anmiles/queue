@@ -1,16 +1,16 @@
 import Emittery from 'emittery';
 
 interface Listeners<T> {
-	item : (item: T) => Promise<void>;
-	done : () => void;
+	item: (item: T)=> Promise<void>;
+	done: ()=> void;
 }
 
 class Queue<TItem> extends Emittery<{ [TEvent in keyof Listeners<TItem>]: Parameters<Listeners<TItem>[TEvent]>[0] }> {
-	private done              : boolean;
-	private readonly data     : TItem[];
-	private readonly interval : number;
+	private done: boolean;
+	private readonly data: TItem[];
+	private readonly interval: number;
 
-	constructor(data: TItem[] = [], { interval = 0 }: { interval? : number } = {}) {
+	constructor(data: TItem[] = [], { interval = 0 }: { interval?: number } = {}) {
 		super();
 		this.done     = false;
 		this.data     = data;
@@ -32,7 +32,7 @@ class Queue<TItem> extends Emittery<{ [TEvent in keyof Listeners<TItem>]: Parame
 
 		if (this.data.length > 0) {
 			const now = performance.now();
-			await this.emit('item', this.data.shift() as TItem);
+			await this.emit('item', this.data.shift() as TItem); // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 			setTimeout(() => {
 				void this.dequeue();
 			}, Math.max(0, this.interval - (performance.now() - now)));

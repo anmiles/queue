@@ -1,4 +1,5 @@
 import sleep from '@anmiles/sleep';
+
 import Queue from '../queue';
 
 describe('src/lib/queue', () => {
@@ -16,7 +17,7 @@ describe('src/lib/queue', () => {
 		setTimeoutSpy.mockImplementation((func, timeout) => {
 			log.push(`timeout(${Math.floor(timeout ?? 0)})`);
 			func();
-			return 0 as unknown as ReturnType<typeof setTimeout>;
+			return 0 as unknown as ReturnType<typeof setTimeout>; // eslint-disable-line @typescript-eslint/no-unsafe-type-assertion
 		});
 	});
 
@@ -41,7 +42,7 @@ describe('src/lib/queue', () => {
 			});
 
 			it('should be set if specified', () => {
-				expect(new Queue([], { interval : 10 })['interval']).toEqual(10);
+				expect(new Queue([], { interval: 10 })['interval']).toEqual(10);
 			});
 		});
 	});
