@@ -1,8 +1,8 @@
 import Emittery from 'emittery';
 
 interface Listeners<T> {
-	item: (item: T)=> Promise<void>;
-	done: ()=> void;
+	item: (item: T) => Promise<void>;
+	done: () => void;
 }
 
 class Queue<TItem> extends Emittery<{ [TEvent in keyof Listeners<TItem>]: Parameters<Listeners<TItem>[TEvent]>[0] }> {
