@@ -1,6 +1,6 @@
 {
 	"name": "@anmiles/queue",
-	"version": "5.0.3",
+	"version": "5.0.4",
 	"description": "Queue dispatcher that sequentially processes incoming items",
 	"keywords": [
 		"queue",
